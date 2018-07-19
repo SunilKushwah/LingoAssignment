@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Lingo-Assignment</string>
+    <string name="title_activity_learn">LearnActivity</string>
+    <string name="title_activity_question">QuestionActivity</string>
+</resources>
