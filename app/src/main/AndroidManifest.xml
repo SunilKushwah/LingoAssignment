@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sunil.lingo_assignment">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -22,6 +24,7 @@
             android:name=".QuestionActivity"
             android:label="@string/title_activity_question"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <service android:name=".DownloadService"/>
     </application>
 
 </manifest>
