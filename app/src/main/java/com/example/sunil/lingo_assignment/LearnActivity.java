@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,6 +41,8 @@ public class LearnActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 1;
     ProgressBar mProgressBar;
     ArrayList<String> urlList = new ArrayList<>();
+    ArrayList<String> concept = new ArrayList<>();
+    ArrayList<String> lessonType = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class LearnActivity extends AppCompatActivity {
         playFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://s3.ap-south-1.amazonaws.com/multibhashi-data/audio/english2kannada/en2kanhow.aac"; // your URL here
+                String url = ""; // your URL here
                 MediaPlayer mediaPlayer = new MediaPlayer();
                 try {
                     mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -107,6 +108,8 @@ public class LearnActivity extends AppCompatActivity {
                     String targetScript = lessons.get(i).getTargetScript();
                     String audioUrl = lessons.get(i).getAudioUrl();
                     urlList.add(audioUrl);
+                    lessonType.add(type);
+                    concept.add(conceptName);
                     Log.d("Result",type+" "+conceptName+" "+pronunciation+" "+targetScript+" "+audioUrl);
                 }
                 downloadFile();
@@ -133,11 +136,11 @@ public class LearnActivity extends AppCompatActivity {
     }
 
     private void startDownload(){
-
         Intent intent = new Intent(this,DownloadService.class);
         intent.putStringArrayListExtra("UrlList",urlList);
+        intent.putStringArrayListExtra("LessonType", lessonType);
+        intent.putStringArrayListExtra("Concept", concept);
         startService(intent);
-
     }
 
     private void registerReceiver(){
