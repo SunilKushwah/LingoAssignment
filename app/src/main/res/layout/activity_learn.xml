@@ -21,17 +21,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <ProgressBar
-        android:id="@+id/progress"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
-
-
-
 
     <android.support.v7.widget.CardView
         android:layout_width="0dp"
@@ -71,30 +60,39 @@
                 app:srcCompat="@android:drawable/ic_media_play" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/concept_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="32dp"
                 android:text="How are you?"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/target_script_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="ಹೇಗ"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@+id/pronounciation_tv"
+                app:layout_constraintStart_toStartOf="@+id/pronounciation_tv"
+                app:layout_constraintTop_toBottomOf="@+id/pronounciation_tv" />
+
+            <TextView
+                android:id="@+id/pronounciation_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@+id/concept_name_tv"
+                app:layout_constraintStart_toStartOf="@+id/concept_name_tv"
+                app:layout_constraintTop_toBottomOf="@+id/concept_name_tv" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 

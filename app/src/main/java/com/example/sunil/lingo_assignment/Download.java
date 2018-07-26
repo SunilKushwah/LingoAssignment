@@ -13,6 +13,7 @@ public class Download  implements Parcelable {
     private int currentFileSize;
     private int totalFileSize;
 
+
     public int getProgress() {
         return progress;
     }
