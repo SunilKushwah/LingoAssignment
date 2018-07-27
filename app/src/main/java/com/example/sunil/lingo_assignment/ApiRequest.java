@@ -1,8 +1,6 @@
 package com.example.sunil.lingo_assignment;
 
-import com.example.sunil.lingo_assignment.model.LessonList;
-
-import java.util.List;
+import com.example.sunil.lingo_assignment.data.LessonList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

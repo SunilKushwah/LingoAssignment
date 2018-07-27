@@ -1,14 +1,12 @@
 package com.example.sunil.lingo_assignment;
 
 import android.app.IntentService;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.example.sunil.lingo_assignment.splash.view.SplashActivity;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -20,8 +18,6 @@ import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class DownloadService extends IntentService {
@@ -119,7 +115,7 @@ public class DownloadService extends IntentService {
 
     private void sendIntent(Download download){
 
-        Intent intent = new Intent(Splash.MESSAGE_PROGRESS);
+        Intent intent = new Intent(SplashActivity.MESSAGE_PROGRESS);
         intent.putExtra("download",download);
         LocalBroadcastManager.getInstance(DownloadService.this).sendBroadcast(intent);
     }

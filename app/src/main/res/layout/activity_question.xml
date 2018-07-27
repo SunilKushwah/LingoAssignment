@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuestionActivity.view.QuestionActivity">
+    tools:context=".question.view.QuestionActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -65,7 +65,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="32dp"
-                android:text="How are you?"
+                android:text="concept"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="ಹೇಗ"
+                android:text="Target Script"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="@+id/pronounciation_tv"
                 app:layout_constraintStart_toStartOf="@+id/pronounciation_tv"
@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="TextView"
+                android:text="Pronounciation"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="@+id/concept_name_tv"
                 app:layout_constraintStart_toStartOf="@+id/concept_name_tv"

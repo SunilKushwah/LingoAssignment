@@ -1,12 +1,10 @@
-package com.example.sunil.lingo_assignment.QuestionActivity.view;
+package com.example.sunil.lingo_assignment.question.view;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,22 +19,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sunil.lingo_assignment.LearnActivity.MVP_Learn;
-import com.example.sunil.lingo_assignment.LearnActivity.model.LearnModel;
-import com.example.sunil.lingo_assignment.LearnActivity.presenter.LearnPresenter;
-import com.example.sunil.lingo_assignment.LearnActivity.view.LearnActivity;
-import com.example.sunil.lingo_assignment.QuestionActivity.MVP_Question;
-import com.example.sunil.lingo_assignment.QuestionActivity.model.QuestionModel;
-import com.example.sunil.lingo_assignment.QuestionActivity.presenter.QuestionPresenter;
+import com.example.sunil.lingo_assignment.question.MVP_Question;
+import com.example.sunil.lingo_assignment.question.model.QuestionModel;
+import com.example.sunil.lingo_assignment.question.presenter.QuestionPresenter;
 import com.example.sunil.lingo_assignment.R;
-import com.example.sunil.lingo_assignment.model.DataManager;
-import com.example.sunil.lingo_assignment.model.Lesson;
-import com.example.sunil.lingo_assignment.model.LessonAndStatus;
+import com.example.sunil.lingo_assignment.data.Lesson;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public class QuestionActivity extends AppCompatActivity implements MVP_Question.RequiredViewOps{

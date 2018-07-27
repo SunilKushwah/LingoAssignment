@@ -1,35 +1,21 @@
-package com.example.sunil.lingo_assignment;
+package com.example.sunil.lingo_assignment.splash.view;
 
-import android.Manifest;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.sunil.lingo_assignment.LearnActivity.view.LearnActivity;
-import com.example.sunil.lingo_assignment.model.DataManager;
-import com.example.sunil.lingo_assignment.model.Lesson;
-import com.example.sunil.lingo_assignment.model.LessonAndStatus;
-import com.example.sunil.lingo_assignment.model.LessonList;
-import java.util.ArrayList;
-import java.util.List;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import com.example.sunil.lingo_assignment.data.DataManager;
+import com.example.sunil.lingo_assignment.splash.MVP_Splash;
+import com.example.sunil.lingo_assignment.splash.model.SplashModel;
+import com.example.sunil.lingo_assignment.splash.presenter.SplashPresenter;
 
-public class Splash extends AppCompatActivity{
-    public static final String TAG = "Splash";
+import java.util.ArrayList;
+
+public class SplashActivity extends AppCompatActivity implements MVP_Splash.RequiredViewOps{
+    public static final String TAG = "SplashActivity";
 
     public static final String MESSAGE_PROGRESS = "downloading....";
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -38,16 +24,16 @@ public class Splash extends AppCompatActivity{
     ArrayList<String> concept = new ArrayList<>();
     ArrayList<String> lessonType = new ArrayList<>();
     DataManager dataManager;
+    private MVP_Splash.ProvidedPresenterOps mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataManager = DataManager.newInstance(this);
-        registerReceiver();
-        getLessonData();
+       // registerReceiver();
+        setupMVP();
     }
 
-    private void getLessonData() {
+    /*private void getLessonData() {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiRequest.BASE_URL)
@@ -88,22 +74,15 @@ public class Splash extends AppCompatActivity{
             }
 
         });
-    }
-    public void downloadFile(){
+    }*/
+   /* public void downloadFile(){
 
         if(checkPermission()){
-            startDownload();
+            mPresenter.downLoadAudio();
+           //startDownload();
         } else {
             requestPermission();
         }
-    }
-
-    private void startDownload(){
-        Intent intent = new Intent(this,DownloadService.class);
-        intent.putStringArrayListExtra("UrlList",urlList);
-        intent.putStringArrayListExtra("LessonType", lessonType);
-        intent.putStringArrayListExtra("Concept", concept);
-        startService(intent);
     }
 
     private void registerReceiver(){
@@ -122,7 +101,6 @@ public class Splash extends AppCompatActivity{
             if(intent.getAction().equals(MESSAGE_PROGRESS)){
 
                 Download download = intent.getParcelableExtra("download");
-                //mProgressBar.setProgress(download.getProgress());
                 if(download.getProgress() == 100){
                     Toast.makeText(getApplicationContext(),"File Download Complete",Toast.LENGTH_LONG).show();
                     callLearnActivity();
@@ -147,15 +125,15 @@ public class Splash extends AppCompatActivity{
 
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},PERMISSION_REQUEST_CODE);
 
-    }
+    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    startDownload();
+                    mPresenter.downLoadAudio();
+                    //startDownload();
                 } else {
                     Toast.makeText(this,"Permission Denied, Please allow to proceed !",Toast.LENGTH_LONG).show();
                 }
@@ -163,10 +141,29 @@ public class Splash extends AppCompatActivity{
         }
     }
 
-    private void callLearnActivity() {
-        Intent intent = new Intent(Splash.this, LearnActivity.class);
+    /*private void callLearnActivity() {
+        Intent intent = new Intent(SplashActivity.this, LearnActivity.class);
         startActivity(intent);
         finish();
+    }*/
+
+
+    @Override
+    public Context getAppContext() {
+        return getApplicationContext();
+    }
+
+    @Override
+    public Context getActivityContext() {
+        return this;
+    }
+
+    private void setupMVP() {
+        SplashPresenter presenter = new SplashPresenter(this);
+        SplashModel model = new SplashModel(presenter);
+        presenter.setModel(model);
+        mPresenter = presenter;
+        mPresenter.getLessonData();
     }
 
 

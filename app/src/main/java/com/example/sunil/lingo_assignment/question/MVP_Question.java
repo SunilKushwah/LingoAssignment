@@ -1,8 +1,8 @@
-package com.example.sunil.lingo_assignment.QuestionActivity;
+package com.example.sunil.lingo_assignment.question;
 
 import android.content.Context;
 
-import com.example.sunil.lingo_assignment.model.Lesson;
+import com.example.sunil.lingo_assignment.data.Lesson;
 
 public interface MVP_Question {
 
@@ -35,6 +35,7 @@ public interface MVP_Question {
         void updateLessonStatus(boolean isCompleted);
         boolean loadLessonData();
         int getLessonsCount();
+        int currentLessonIndex();
     }
 }
 

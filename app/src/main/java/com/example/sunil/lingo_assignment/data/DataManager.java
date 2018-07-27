@@ -1,7 +1,6 @@
-package com.example.sunil.lingo_assignment.model;
+package com.example.sunil.lingo_assignment.data;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
@@ -9,7 +8,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class DataManager {

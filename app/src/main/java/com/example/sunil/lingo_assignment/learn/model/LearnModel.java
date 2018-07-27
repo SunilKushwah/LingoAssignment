@@ -1,9 +1,9 @@
-package com.example.sunil.lingo_assignment.LearnActivity.model;
+package com.example.sunil.lingo_assignment.learn.model;
 
-import com.example.sunil.lingo_assignment.LearnActivity.MVP_Learn;
-import com.example.sunil.lingo_assignment.model.DataManager;
-import com.example.sunil.lingo_assignment.model.Lesson;
-import com.example.sunil.lingo_assignment.model.LessonAndStatus;
+import com.example.sunil.lingo_assignment.learn.MVP_Learn;
+import com.example.sunil.lingo_assignment.data.DataManager;
+import com.example.sunil.lingo_assignment.data.Lesson;
+import com.example.sunil.lingo_assignment.data.LessonAndStatus;
 
 import java.util.List;
 

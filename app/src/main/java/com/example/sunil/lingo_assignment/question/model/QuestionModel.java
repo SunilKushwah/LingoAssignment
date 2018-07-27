@@ -1,9 +1,9 @@
-package com.example.sunil.lingo_assignment.QuestionActivity.model;
+package com.example.sunil.lingo_assignment.question.model;
 
-import com.example.sunil.lingo_assignment.QuestionActivity.MVP_Question;
-import com.example.sunil.lingo_assignment.model.DataManager;
-import com.example.sunil.lingo_assignment.model.Lesson;
-import com.example.sunil.lingo_assignment.model.LessonAndStatus;
+import com.example.sunil.lingo_assignment.question.MVP_Question;
+import com.example.sunil.lingo_assignment.data.DataManager;
+import com.example.sunil.lingo_assignment.data.Lesson;
+import com.example.sunil.lingo_assignment.data.LessonAndStatus;
 
 import java.util.List;
 
@@ -52,6 +52,11 @@ public class QuestionModel implements MVP_Question.ProvidedModelOps{
         if ( lessons != null )
             return lessons.size();
         return 0;
+    }
+
+    @Override
+    public int currentLessonIndex() {
+        return currentLessonIndex;
     }
 }
 

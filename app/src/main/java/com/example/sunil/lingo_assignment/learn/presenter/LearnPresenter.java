@@ -1,39 +1,35 @@
-package com.example.sunil.lingo_assignment.QuestionActivity.presenter;
+package com.example.sunil.lingo_assignment.learn.presenter;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.speech.RecognizerIntent;
-import android.widget.Toast;
 
-import com.example.sunil.lingo_assignment.LearnActivity.view.LearnActivity;
-import com.example.sunil.lingo_assignment.QuestionActivity.MVP_Question;
-import com.example.sunil.lingo_assignment.QuestionActivity.view.QuestionActivity;
-import com.example.sunil.lingo_assignment.R;
-import com.example.sunil.lingo_assignment.model.Lesson;
+import com.example.sunil.lingo_assignment.learn.MVP_Learn;
+import com.example.sunil.lingo_assignment.question.view.QuestionActivity;
+import com.example.sunil.lingo_assignment.data.Lesson;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.Locale;
 
-public class QuestionPresenter  implements MVP_Question.ProvidedPresenterOps, MVP_Question.RequiredPresenterOps{
-    private WeakReference<MVP_Question.RequiredViewOps> mView;
-    private MVP_Question.ProvidedModelOps mModel;
+public class LearnPresenter implements MVP_Learn.ProvidedPresenterOps, MVP_Learn.RequiredPresenterOps{
 
-    public QuestionPresenter(MVP_Question.RequiredViewOps view) {
+
+    private WeakReference<MVP_Learn.RequiredViewOps> mView;
+    private MVP_Learn.ProvidedModelOps mModel;
+
+    public LearnPresenter(MVP_Learn.RequiredViewOps view) {
         mView = new WeakReference<>(view);
     }
 
-    private MVP_Question.RequiredViewOps getView() throws NullPointerException{
+    private MVP_Learn.RequiredViewOps getView() throws NullPointerException{
         if ( mView != null )
             return mView.get();
         else
             throw new NullPointerException("View is unavailable");
     }
 
-    public void setModel(MVP_Question.ProvidedModelOps model) {
+    public void setModel(MVP_Learn.ProvidedModelOps model) {
         mModel = model;
         loadData();
     }
@@ -68,13 +64,14 @@ public class QuestionPresenter  implements MVP_Question.ProvidedPresenterOps, MV
 
     @Override
     public Lesson getLessonData() {
-        return mModel.getLesson();
+       return mModel.getLesson();
     }
 
     @Override
     public void clickNextFab(String concept) {
         mModel.updateLessonStatus(true);
-        Intent intent = new Intent(getActivityContext(),LearnActivity.class);
+        Intent intent = new Intent(getActivityContext(),QuestionActivity.class);
+        intent.putExtra("Concept",concept);
         getActivityContext().startActivity(intent);
 
     }
@@ -90,10 +87,5 @@ public class QuestionPresenter  implements MVP_Question.ProvidedPresenterOps, MV
             e.printStackTrace();
         }
         mediaPlayer.start();
-    }
-
-    @Override
-    public void clickMicFab() {
-        getView().promptSpeech();
     }
 }

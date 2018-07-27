@@ -1,4 +1,4 @@
-package com.example.sunil.lingo_assignment.model;
+package com.example.sunil.lingo_assignment.data;
 
 
 import com.google.gson.annotations.Expose;

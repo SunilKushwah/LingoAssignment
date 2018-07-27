@@ -1,4 +1,4 @@
-package com.example.sunil.lingo_assignment.LearnActivity.view;
+package com.example.sunil.lingo_assignment.learn.view;
 
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
@@ -8,16 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.sunil.lingo_assignment.LearnActivity.model.LearnModel;
-import com.example.sunil.lingo_assignment.LearnActivity.presenter.LearnPresenter;
-import com.example.sunil.lingo_assignment.LearnActivity.MVP_Learn;
+import com.example.sunil.lingo_assignment.learn.model.LearnModel;
+import com.example.sunil.lingo_assignment.learn.presenter.LearnPresenter;
+import com.example.sunil.lingo_assignment.learn.MVP_Learn;
 import com.example.sunil.lingo_assignment.R;
-import com.example.sunil.lingo_assignment.model.DataManager;
-import com.example.sunil.lingo_assignment.model.Lesson;
-import com.example.sunil.lingo_assignment.model.LessonAndStatus;
+import com.example.sunil.lingo_assignment.data.Lesson;
 
 import java.io.File;
-import java.util.List;
 
 public class LearnActivity extends AppCompatActivity implements MVP_Learn.RequiredViewOps {
 
