@@ -1,7 +1,8 @@
-package com.example.sunil.lingo_assignment;
+package com.example.sunil.lingo_assignment.QuestionActivity.view;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
@@ -12,7 +13,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,8 +21,16 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sunil.lingo_assignment.LearnActivity.MVP_Learn;
+import com.example.sunil.lingo_assignment.LearnActivity.model.LearnModel;
+import com.example.sunil.lingo_assignment.LearnActivity.presenter.LearnPresenter;
+import com.example.sunil.lingo_assignment.LearnActivity.view.LearnActivity;
+import com.example.sunil.lingo_assignment.QuestionActivity.MVP_Question;
+import com.example.sunil.lingo_assignment.QuestionActivity.model.QuestionModel;
+import com.example.sunil.lingo_assignment.QuestionActivity.presenter.QuestionPresenter;
 import com.example.sunil.lingo_assignment.R;
 import com.example.sunil.lingo_assignment.model.DataManager;
+import com.example.sunil.lingo_assignment.model.Lesson;
 import com.example.sunil.lingo_assignment.model.LessonAndStatus;
 
 import java.io.File;
@@ -31,76 +39,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class QuestionActivity extends AppCompatActivity {
+public class QuestionActivity extends AppCompatActivity implements MVP_Question.RequiredViewOps{
 
     public static final String TAG = "QuestionActivity";
     private final int REQ_CODE_SPEECH_INPUT = 100;
-
-    DataManager dataManager;
-    List<LessonAndStatus> lessons;
     TextView conceptNameTextView,pronounciationTextView,targetScriptTextView;
     FloatingActionButton playFab,nextFab,micFab;
     Toolbar toolbar;
     String type,concept,fileName;
-    LessonAndStatus currentLesson;
+    int currentLessonIndex;
+    private MVP_Question.ProvidedPresenterOps mPresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
         checkPermission();
-        dataManager = DataManager.newInstance(this);
         initViews();
-        setLessonData();
+        setupMVP();
 
         playFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String url = getExternalFilesDir(null) + File.separator + fileName; // your URL here
-                MediaPlayer mediaPlayer = new MediaPlayer();
-                try {
-                    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    mediaPlayer.setDataSource(url);
-                    mediaPlayer.prepare();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                mediaPlayer.start();
+                mPresenter.clickPlayFab(url);
             }
         });
         nextFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(QuestionActivity.this,LearnActivity.class);
-                startActivity(intent);
+                mPresenter.clickNextFab(concept);
             }
         });
         micFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                promptSpeechInput();
+                mPresenter.clickMicFab();
             }
         });
     }
 
-    private void setLessonData() {
-        concept = getIntent().getStringExtra("Concept");
-        lessons = dataManager.getLessonList();
-        for(int i=0; i<lessons.size();i++) {
-            if (lessons.get(i).isCompleted() == false &&
-                    lessons.get(i).getLesson().getConceptName().equals(concept)&&
-                    lessons.get(i).getLesson().getType().equals("question")) {
-                currentLesson = lessons.get(i);
-                conceptNameTextView.setText(lessons.get(i).getLesson().getConceptName());
-                pronounciationTextView.setText(lessons.get(i).getLesson().getPronunciation());
-                targetScriptTextView.setText(lessons.get(i).getLesson().getTargetScript());
-                type = lessons.get(i).getLesson().getType();
-                concept = lessons.get(i).getLesson().getConceptName();
-                fileName = type + "_lesson_"+concept+".aac";
-                break;
-            }
-        }
-    }
 
     private void promptSpeechInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -129,7 +108,7 @@ public class QuestionActivity extends AppCompatActivity {
                     Log.d(TAG,"speech :"+result.get(0));
                     if(pronounciationTextView.getText().toString().equalsIgnoreCase(result.get(0))){
                         Toast.makeText(this,"Matched",Toast.LENGTH_SHORT).show();
-                        currentLesson.setCompleted(true);
+                        nextFab.show();
                     }else{
                         Toast.makeText(this," Not Matched",Toast.LENGTH_SHORT).show();
                     }
@@ -149,6 +128,7 @@ public class QuestionActivity extends AppCompatActivity {
         playFab = findViewById(R.id.play_fab);
         nextFab = findViewById(R.id.next_fab);
         micFab = findViewById(R.id.mic_fab);
+        nextFab.show();
     }
 
     private void checkPermission() {
@@ -162,4 +142,35 @@ public class QuestionActivity extends AppCompatActivity {
         }
     }
 
+    private void setupMVP() {
+        QuestionPresenter presenter = new QuestionPresenter(this);
+        QuestionModel model = new QuestionModel(presenter);
+        presenter.setModel(model);
+        mPresenter = presenter;
+    }
+
+    @Override
+    public Context getAppContext() {
+        return getApplicationContext();
+    }
+
+    @Override
+    public Context getActivityContext() {
+        return this;
+    }
+
+    @Override
+    public void setLessonData(Lesson lesson) {
+        conceptNameTextView.setText(lesson.getConceptName());
+        pronounciationTextView.setText(lesson.getPronunciation());
+        targetScriptTextView.setText(lesson.getTargetScript());
+        type = lesson.getType();
+        concept = lesson.getConceptName();
+        fileName = type + "_lesson_"+concept+".aac";
+    }
+
+    @Override
+    public void promptSpeech() {
+        promptSpeechInput();
+    }
 }

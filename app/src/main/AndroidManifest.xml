@@ -24,12 +24,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LearnActivity"
+            android:name=".LearnActivity.view.LearnActivity"
             android:label="@string/title_activity_learn"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".QuestionActivity"
+            android:name=".QuestionActivity.view.QuestionActivity"
             android:label="@string/title_activity_question"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <service android:name=".DownloadService"/>

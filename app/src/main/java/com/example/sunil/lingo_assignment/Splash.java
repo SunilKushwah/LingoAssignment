@@ -15,6 +15,7 @@ import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.sunil.lingo_assignment.LearnActivity.view.LearnActivity;
 import com.example.sunil.lingo_assignment.model.DataManager;
 import com.example.sunil.lingo_assignment.model.Lesson;
 import com.example.sunil.lingo_assignment.model.LessonAndStatus;

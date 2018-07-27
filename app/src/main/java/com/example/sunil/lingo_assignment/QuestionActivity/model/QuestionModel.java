@@ -1,0 +1,57 @@
+package com.example.sunil.lingo_assignment.QuestionActivity.model;
+
+import com.example.sunil.lingo_assignment.QuestionActivity.MVP_Question;
+import com.example.sunil.lingo_assignment.model.DataManager;
+import com.example.sunil.lingo_assignment.model.Lesson;
+import com.example.sunil.lingo_assignment.model.LessonAndStatus;
+
+import java.util.List;
+
+public class QuestionModel implements MVP_Question.ProvidedModelOps{
+    // Presenter reference
+    private MVP_Question.RequiredPresenterOps mPresenter;
+    private DataManager mDataManager;
+    public Lesson lesson;
+    public int currentLessonIndex;
+    public LessonAndStatus lessonAndStatus;
+    public List<LessonAndStatus> lessons;
+
+
+    public QuestionModel(MVP_Question.RequiredPresenterOps presenter) {
+        this.mPresenter = presenter;
+        mDataManager =DataManager.newInstance( mPresenter.getAppContext() );
+    }
+
+
+    @Override
+    public boolean loadLessonData() {
+        lessons = mDataManager.getLessonList();
+        return lessons != null;
+    }
+
+    @Override
+    public Lesson getLesson() {
+        loadLessonData();
+        for(int i=0; i<lessons.size();i++) {
+            if (lessons.get(i).isCompleted() == false) {
+                currentLessonIndex = i;
+                lesson = lessons.get(i).getLesson();
+                break;
+            }
+        }
+        return lesson;
+    }
+
+    @Override
+    public void updateLessonStatus(boolean isCompleted) {
+        mDataManager.updateLessonStatus(currentLessonIndex,isCompleted);
+    }
+
+    @Override
+    public int getLessonsCount() {
+        if ( lessons != null )
+            return lessons.size();
+        return 0;
+    }
+}
+

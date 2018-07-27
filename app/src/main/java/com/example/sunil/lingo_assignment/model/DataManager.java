@@ -47,6 +47,21 @@ public class DataManager {
         editor.commit();
     }
 
+    public void updateLessonStatus(int index ,boolean status){
+        List<LessonAndStatus> lessons ;
+        Gson gson = new Gson();
+        String json = pref.getString(KEY_LESSON_LIST, "");
+        if (json.isEmpty()) {
+            lessons = new ArrayList<>();
+        } else {
+            Type type = new TypeToken<List<LessonAndStatus>>() {
+            }.getType();
+            lessons = gson.fromJson(json, type);
+        }
+        lessons.get(index).setCompleted(status);
+        saveLessonList(lessons);
+    }
+
     public  List<LessonAndStatus> getLessonList() {
         List<LessonAndStatus> lessons ;
         Gson gson = new Gson();
