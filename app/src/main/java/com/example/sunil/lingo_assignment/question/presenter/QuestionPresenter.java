@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.widget.Toast;
 
 import com.example.sunil.lingo_assignment.learn.view.LearnActivity;
 import com.example.sunil.lingo_assignment.question.MVP_Question;
@@ -71,6 +72,8 @@ public class QuestionPresenter  implements MVP_Question.ProvidedPresenterOps, MV
         if(mModel.getLessonsCount() != mModel.currentLessonIndex()+1) {
             Intent intent = new Intent(getActivityContext(), LearnActivity.class);
             getActivityContext().startActivity(intent);
+        }else{
+            Toast.makeText(getActivityContext(), "Last Lesson", Toast.LENGTH_SHORT).show();
         }
 
     }
